@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  /* Text */
+  --color-text-primary: #353c49;
+  --color-text-secondary: #6d7582;
+  --color-text-subtitle: #8d94a0;
+
+  /* Palette */
+  --color-palette-primary: #4880ee;
+  --color-palette-red: #e84118;
+  --color-palette-gray: #dadada;
+  --color-palette-lightGray: #f2f4f6;
+  --color-palette-white: #ffffff;
+}
