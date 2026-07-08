@@ -1,0 +1,47 @@
+{
+    "plugins": [
+        "@trivago/prettier-plugin-sort-imports",
+        "prettier-plugin-tailwindcss"
+    ],
+    "endOfLine": "auto",
+    "printWidth": 180,
+    "htmlWhitespaceSensitivity": "css",
+    "semi": false,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false,
+    "overrides": [
+        {
+            "files": [
+                "*.tsx"
+            ],
+            "options": {
+                "semi": true,
+                "trailingComma": "none",
+                "singleQuote": false,
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": "*.json",
+            "options": {
+                "printWidth": 200,
+                "tabWidth": 2,
+                "semi": false,
+                "singleQuote": false,
+                "bracketSpacing": true,
+                "trailingComma": "all"
+            }
+        }
+    ],
+    "importOrder": [
+        "^react",
+        "<THIRD_PARTY_MODULES>",
+        "^~/components/(.*)$",
+        "^~/assets/(.*)$",
+        "^[./]"
+    ],
+    "importOrderSeparation": false,
+    "importOrderSortSpecifiers": true
+}
