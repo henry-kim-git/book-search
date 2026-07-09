@@ -19,10 +19,18 @@ const ROUTE_LIST: RouteItem[] = [
 
 function Header() {
   return (
-    <header className="flex h-20 items-center justify-center px-6">
+    <header className="bg-palette-white sticky top-0 z-10 flex h-20 items-center justify-center px-6">
       <nav className="relative flex w-full max-w-[1600px] items-center justify-center">
         <a href="/" className="absolute top-1/2 left-0 -translate-y-1/2">
-          <img src="/images/logo.svg" alt="CERTICOS BOOKS" width={207} height={32} sizes="207px" fetchPriority="high" loading="eager" />
+          <img
+            src="/images/logo.svg"
+            alt="CERTICOS BOOKS"
+            width={207}
+            height={32}
+            sizes="207px"
+            fetchPriority="high"
+            loading="eager"
+          />
         </a>
         <div className="flex items-center justify-center gap-8">
           {ROUTE_LIST.map((route) => (

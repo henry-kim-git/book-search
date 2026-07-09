@@ -19,6 +19,13 @@ video {
   max-width: none;
 }
 
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+
 p {
   word-break: keep-all;
 }
