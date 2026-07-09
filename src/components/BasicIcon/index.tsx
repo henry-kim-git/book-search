@@ -1,8 +1,8 @@
 import { cloneElement } from "react";
 import { twMerge } from "tailwind-merge";
+import { FILLED_ICONS } from "./filledIcons";
 import { useSvg } from "./hooks/useSvg";
 import { LINE_ICONS } from "./lineIcons";
-import { FILLED_ICONS } from "./filledIcons";
 
 export type BasicIconType =
   | {
