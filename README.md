@@ -1,32 +1,93 @@
-# cdri-books-henry
+# CERTICOS BOOKS
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+카카오 도서 검색 API를 활용한 도서 검색 서비스입니다. 채용 사전과제로 진행했습니다.
 
-Currently, two official plugins are available:
+## 프로젝트 개요
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 도서를 검색어(제목/출판사/저자)로 검색하고 목록으로 확인할 수 있는 웹 애플리케이션
+- 최근 검색어를 쿠키에 저장해 재검색 시 활용
+- React 19 + TypeScript + Vite 기반 SPA
+- 작업 기간: 이틀에 걸쳐 약 6시간 소요
 
-## React Compiler
+## 실행 방법 및 환경 설정
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 요구 사항
 
-## Expanding the Oxlint configuration
+- Node.js 18 이상
+- npm
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### 설치 및 실행
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+프로젝트 루트에 `.env` 파일을 생성하고 카카오 REST API 키를 등록합니다.
+
+```
+VITE_KAKAO_REST_API_KEY=발급받은_REST_API_키
+```
+
+```bash
+# 개발 서버 실행 (http://localhost:3000)
+npm run dev
+
+# 빌드
+npm run build
+
+# 빌드 결과 미리보기
+npm run preview
+
+# 린트
+npm run lint
+```
+
+## 폴더 구조 및 주요 코드 설명
+
+```
+src/
+├── components/           # 여러 페이지에서 공용으로 쓰는 UI 컴포넌트
+│   ├── BasicIcon/         # SVG 아이콘 컴포넌트 (line/filled)
+│   ├── BookList/          # 도서 목록/아이템 컴포넌트
+│   ├── Header.tsx          # 상단 네비게이션
+│   └── Typography.tsx      # 타이포그래피 프리셋 컴포넌트
+├── hooks/                # 여러 곳에서 재사용하는 공용 훅
+├── layouts/
+│   └── RootLayout/         # 공통 레이아웃(헤더 + 컨텐츠 영역)
+├── pages/
+│   ├── LandingPage/         # 도서 검색 페이지
+│   │   ├── components/       # 이 페이지에서만 쓰는 컴포넌트 (검색창, 상세검색, 결과 리스트 등)
+│   │   ├── hooks/             # 도서 검색 API 호출 훅
+│   │   └── store/             # 검색 상태(zustand store)
+│   └── FavoritesPage/       # 찜한 책 페이지
+├── routes/               # react-router 라우트 정의
+├── styles/               # 전역 스타일, 컬러 토큰
+└── utils/                # 쿠키 등 범용 유틸 함수
+```
+
+- **`pages/LandingPage/store/useBookSearch.ts`**: 검색어, 페이지, 검색 결과 등 검색과 관련된 상태를 zustand로 관리하는 스토어입니다.
+- **`pages/LandingPage/hooks/useSearchBook.ts`**: 카카오 도서 검색 API 호출, 페이지네이션, 최근 검색어 쿠키 저장/삭제 로직을 담당합니다. 컴포넌트는 이 훅을 통해서만 검색 상태와 API를 다룹니다.
+- **`utils/cookie.ts`**: 쿠키 read/write를 감싼 유틸로 최근 검색어 저장에 사용됩니다.
+- **`components/Typography.tsx`**, **`styles/colorToken.css`**: 타이포/컬러 스타일을 한 곳에서 정의해 재사용합니다.
+
+## 라이브러리 선택 이유
+
+- **Tailwind CSS**: 실무에서 자주 사용해 손에 익숙하고, 짧은 기간 안에 프로젝트를 완성하려면 미리 만들어진 유틸리티 클래스를 쓰는 편이 빠르다고 판단해 선택했습니다.
+- **Zustand**: 검색 상태를 여러 컴포넌트가 전역에서 바라볼 필요가 있어 도입했습니다. 특히 zustand의 장점인 부분 구독(selector) 기능을 통해, 상태 변경이 필요한 컴포넌트만 리렌더링되도록 최적화할 수 있다는 점이 선택 이유입니다.
+
+## 강조하고 싶은 기능
+
+평가 기준에 명시된 UI 구현력, 디자인 완성도, 코드 가독성, 상태 관리, API 연동을 실무 기준에 맞춰 구현하는 데 중점을 두었습니다.
+
+- **재사용 가능한 UI 컴포넌트**: 컬러, 타이포, 공통 컴포넌트의 스타일과 로직을 한 곳에서 관리해 유지보수성을 높였습니다.
+- **역할 단위로 분리된 함수**: 하나의 함수에 모든 기능을 몰아넣지 않고, 함수마다 역할을 분리해 테스트 가능성을 높이고 복잡도를 낮췄습니다.
+- **단일 진입점의 상태/API 레이어**: 상태 관리와 API 연동 로직을 한 곳에서 관리해 여러 곳에서 중복으로 다루지 않도록 하고, 문제가 생겼을 때 디버깅이 쉽도록 설계했습니다.
+- **불필요한 상태와 props drilling 지양**: 꼭 필요한 상태만 두고 컴포넌트 트리를 깊게 거치지 않도록 설계해 데이터 흐름을 명확하게 유지했습니다.
+
+## 진행하지 못한 기능
+
+기획 단계에서 계획했지만 시간 관계상 구현하지 못한 기능입니다.
+
+- 책 목록 상세보기 펼치기 기능
+- 찜하기 추가/삭제 기능
+- 찜하기 조회 기능
