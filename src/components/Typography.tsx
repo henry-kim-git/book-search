@@ -16,7 +16,13 @@ type Props = {
   type: TypoType;
 } & React.ComponentPropsWithoutRef<"p">;
 
-export default function Typography({ tag: Tag = "p", type, children, className, ...props }: React.PropsWithChildren<Props>) {
+export default function Typography({
+  tag: Tag = "p",
+  type,
+  children,
+  className,
+  ...props
+}: React.PropsWithChildren<Props>) {
   return (
     <Tag {...props} className={`${TYPO_STYLES[type]}${className ? ` ${className}` : ""}`}>
       {children}

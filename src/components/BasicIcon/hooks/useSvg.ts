@@ -1,6 +1,8 @@
-import { Children, cloneElement, isValidElement, useId, type ReactNode, type ReactElement } from "react"
+import { Children, type ReactElement, type ReactNode, cloneElement, isValidElement, useId } from "react"
 
-const isElementWithProps = (node: ReactNode): node is ReactElement<{ id?: string; children?: ReactNode } & Record<string, unknown>> => isValidElement(node)
+const isElementWithProps = (
+  node: ReactNode
+): node is ReactElement<{ id?: string; children?: ReactNode } & Record<string, unknown>> => isValidElement(node)
 
 const collectSvgIds = (node: ReactNode, ids = new Set<string>()) => {
   if (!isElementWithProps(node)) return ids
